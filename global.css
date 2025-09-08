@@ -151,3 +151,134 @@
     --gold-100: #564329;
   }
 }
+
+/* Web-specific responsive utilities */
+@media (min-width: 640px) {
+  .web\:sm\:max-w-sm { max-width: 24rem; }
+  .web\:sm\:max-w-md { max-width: 28rem; }
+  .web\:sm\:max-w-lg { max-width: 32rem; }
+  .web\:sm\:max-w-xl { max-width: 36rem; }
+  .web\:sm\:max-w-2xl { max-width: 42rem; }
+  .web\:sm\:max-w-4xl { max-width: 56rem; }
+  .web\:sm\:max-w-6xl { max-width: 72rem; }
+  .web\:sm\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .web\:sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .web\:sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .web\:sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 768px) {
+  .web\:md\:max-w-sm { max-width: 24rem; }
+  .web\:md\:max-w-md { max-width: 28rem; }
+  .web\:md\:max-w-lg { max-width: 32rem; }
+  .web\:md\:max-w-xl { max-width: 36rem; }
+  .web\:md\:max-w-2xl { max-width: 42rem; }
+  .web\:md\:max-w-4xl { max-width: 56rem; }
+  .web\:md\:max-w-6xl { max-width: 72rem; }
+  .web\:md\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .web\:md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .web\:md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .web\:md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .web\:lg\:max-w-sm { max-width: 24rem; }
+  .web\:lg\:max-w-md { max-width: 28rem; }
+  .web\:lg\:max-w-lg { max-width: 32rem; }
+  .web\:lg\:max-w-xl { max-width: 36rem; }
+  .web\:lg\:max-w-2xl { max-width: 42rem; }
+  .web\:lg\:max-w-4xl { max-width: 56rem; }
+  .web\:lg\:max-w-6xl { max-width: 72rem; }
+  .web\:lg\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .web\:lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .web\:lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .web\:lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1280px) {
+  .web\:xl\:max-w-sm { max-width: 24rem; }
+  .web\:xl\:max-w-md { max-width: 28rem; }
+  .web\:xl\:max-w-lg { max-width: 32rem; }
+  .web\:xl\:max-w-xl { max-width: 36rem; }
+  .web\:xl\:max-w-2xl { max-width: 42rem; }
+  .web\:xl\:max-w-4xl { max-width: 56rem; }
+  .web\:xl\:max-w-6xl { max-width: 72rem; }
+  .web\:xl\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .web\:xl\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .web\:xl\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .web\:xl\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Ensure grid display on web */
+.web\:grid {
+  display: grid !important;
+}
+
+/* Responsive text sizes for web */
+.web\:text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.web\:text-base { font-size: 1rem; line-height: 1.5rem; }
+.web\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.web\:text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.web\:text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.web\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.web\:text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+.web\:text-5xl { font-size: 3rem; line-height: 1; }
+
+/* Responsive spacing for web */
+.web\:px-4 { padding-left: 1rem; padding-right: 1rem; }
+.web\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.web\:px-8 { padding-left: 2rem; padding-right: 2rem; }
+.web\:py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+.web\:py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+.web\:py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+.web\:p-6 { padding: 1.5rem; }
+.web\:mb-12 { margin-bottom: 3rem; }
+
+/* Responsive layout utilities */
+.web\:mx-auto { margin-left: auto; margin-right: auto; }
+.web\:w-full { width: 100%; }
+.web\:max-w-sm { max-width: 24rem; }
+.web\:max-w-md { max-width: 28rem; }
+.web\:max-w-lg { max-width: 32rem; }
+.web\:max-w-xl { max-width: 36rem; }
+.web\:max-w-2xl { max-width: 42rem; }
+.web\:max-w-4xl { max-width: 56rem; }
+.web\:max-w-6xl { max-width: 72rem; }
+.web\:max-w-full { max-width: 100%; }
+
+/* Flexbox utilities for web */
+.web\:flex-row { flex-direction: row; }
+.web\:justify-center { justify-content: center; }
+.web\:items-start { align-items: flex-start; }
+.web\:text-left { text-align: left; }
+.web\:w-auto { width: auto; }
+
+/* Interactive states for web */
+.web\:hover\:shadow-lg:hover { 
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
+}
+.web\:hover\:shadow-xl:hover { 
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
+}
+.web\:hover\:shadow-md:hover { 
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+}
+.web\:hover\:border-accent:hover { 
+  border-color: hsl(var(--accent)); 
+}
+.web\:transition-shadow { 
+  transition-property: box-shadow; 
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
+  transition-duration: 150ms; 
+}
+.web\:transition-all { 
+  transition-property: all; 
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
+  transition-duration: 150ms; 
+}
+.web\:duration-200 { 
+  transition-duration: 200ms; 
+}
+.web\:cursor-pointer { 
+  cursor: pointer; 
+}

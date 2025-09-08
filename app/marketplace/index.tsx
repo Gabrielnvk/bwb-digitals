@@ -3,6 +3,8 @@ import { Card } from '@/src/components/ui/card';
 import { Icon } from '@/src/components/ui/icon';
 import { Input } from '@/src/components/ui/input';
 import { Typography } from '@/src/shared/components/Typography';
+import { ResponsiveContainer } from '@/src/shared/components/ResponsiveContainer';
+import { ResponsiveGrid } from '@/src/shared/components/ResponsiveGrid';
 import { Stack, Link } from 'expo-router';
 import { 
   SearchIcon, 
@@ -14,7 +16,7 @@ import {
   MapIcon
 } from 'lucide-react-native';
 import * as React from 'react';
-import { ScrollView, View, Pressable, FlatList, Image } from 'react-native';
+import { ScrollView, View, Pressable, FlatList, Image, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Mock data for properties
@@ -81,53 +83,69 @@ export default function MarketplaceScreen() {
       />
       <SafeAreaView className="flex-1 bg-background">
         {/* Search and Filters */}
-        <View className="px-4 py-4 border-b border-border">
-          <View className="flex-row gap-2">
-            <View className="flex-1 relative">
-              <Input
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-                placeholder="Buscar por localização, nome..."
-                className="pl-10"
-              />
-              <View className="absolute left-3 top-3">
-                <Icon as={SearchIcon} className="size-4 text-muted-foreground" />
+        <View className="border-b border-border">
+          <ResponsiveContainer maxWidth="6xl" className="py-4">
+            <View className="flex-row gap-2">
+              <View className="flex-1 relative web:max-w-md">
+                <Input
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                  placeholder="Buscar por localização, nome..."
+                  className="pl-10"
+                />
+                <View className="absolute left-3 top-3">
+                  <Icon as={SearchIcon} className="size-4 text-muted-foreground" />
+                </View>
               </View>
+              
+              <Pressable onPress={() => setShowFilters(!showFilters)}>
+                <Button size="icon" variant="outline">
+                  <Icon as={FilterIcon} className="size-5" />
+                </Button>
+              </Pressable>
+              
+              <Pressable onPress={() => setViewMode(viewMode === 'grid' ? 'map' : 'grid')}>
+                <Button size="icon" variant="outline">
+                  <Icon as={viewMode === 'grid' ? MapIcon : GridIcon} className="size-5" />
+                </Button>
+              </Pressable>
             </View>
-            
-            <Pressable onPress={() => setShowFilters(!showFilters)}>
-              <Button size="icon" variant="outline">
-                <Icon as={FilterIcon} className="size-5" />
-              </Button>
-            </Pressable>
-            
-            <Pressable onPress={() => setViewMode(viewMode === 'grid' ? 'map' : 'grid')}>
-              <Button size="icon" variant="outline">
-                <Icon as={viewMode === 'grid' ? MapIcon : GridIcon} className="size-5" />
-              </Button>
-            </Pressable>
-          </View>
+          </ResponsiveContainer>
         </View>
 
         {/* Hot Opportunities Banner */}
-        <View className="px-4 py-3 bg-accent/10 border-b border-accent/20">
-          <View className="flex-row items-center gap-2">
-            <Icon as={TrendingUpIcon} className="size-4 text-accent" />
-            <Typography.Small className="text-accent font-semibold">
-              3 oportunidades quentes disponíveis agora!
-            </Typography.Small>
-          </View>
+        <View className="bg-accent/10 border-b border-accent/20">
+          <ResponsiveContainer maxWidth="6xl" className="py-3">
+            <View className="flex-row items-center gap-2">
+              <Icon as={TrendingUpIcon} className="size-4 text-accent" />
+              <Typography.Small className="text-accent font-semibold">
+                3 oportunidades quentes disponíveis agora!
+              </Typography.Small>
+            </View>
+          </ResponsiveContainer>
         </View>
 
         {/* Property List */}
-        <FlatList
-          data={MOCK_PROPERTIES}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={{ padding: 16, gap: 16 }}
-          renderItem={({ item }) => <PropertyCard property={item} />}
-          ItemSeparatorComponent={() => <View className="h-4" />}
-          showsVerticalScrollIndicator={false}
-        />
+        {Platform.OS === 'web' ? (
+          <ScrollView className="flex-1">
+            <ResponsiveContainer maxWidth="6xl" className="py-6">
+              <ResponsiveGrid columns={{ default: 1, md: 2, lg: 3 }} gap={4}>
+                {MOCK_PROPERTIES.map((property) => (
+                  <PropertyCard key={property.id} property={property} />
+                ))}
+              </ResponsiveGrid>
+            </ResponsiveContainer>
+          </ScrollView>
+        ) : (
+          <FlatList
+            data={MOCK_PROPERTIES}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{ padding: 16, gap: 16 }}
+            renderItem={({ item }) => <PropertyCard property={item} />}
+            ItemSeparatorComponent={() => <View className="h-4" />}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </SafeAreaView>
     </>
   );
@@ -136,8 +154,8 @@ export default function MarketplaceScreen() {
 function PropertyCard({ property }: { property: typeof MOCK_PROPERTIES[0] }) {
   return (
     <Link href={`/marketplace/${property.id}`} asChild>
-      <Pressable>
-        <Card className="overflow-hidden">
+      <Pressable className="h-full">
+        <Card className="overflow-hidden h-full web:hover:shadow-xl web:transition-shadow web:cursor-pointer">
           {/* Image */}
           <View className="relative">
             <Image
@@ -158,24 +176,26 @@ function PropertyCard({ property }: { property: typeof MOCK_PROPERTIES[0] }) {
           </View>
 
           {/* Content */}
-          <View className="p-4">
-            <Typography.H4 className="mb-1">{property.name}</Typography.H4>
-            <View className="flex-row items-center gap-1 mb-3">
-              <Icon as={MapPinIcon} className="size-3 text-muted-foreground" />
-              <Typography.Small variant="secondary">{property.location}</Typography.Small>
-            </View>
-
-            {/* Stats Grid */}
-            <View className="flex-row flex-wrap gap-4 mb-4">
-              <View className="flex-1">
-                <Typography.Caption>Valor do Token</Typography.Caption>
-                <Typography.Price className="text-lg">R$ {property.tokenPrice}</Typography.Price>
+          <View className="p-4 flex-1">
+            <View className="flex-1">
+              <Typography.H4 className="mb-1">{property.name}</Typography.H4>
+              <View className="flex-row items-center gap-1 mb-3">
+                <Icon as={MapPinIcon} className="size-3 text-muted-foreground" />
+                <Typography.Small variant="secondary">{property.location}</Typography.Small>
               </View>
-              <View className="flex-1">
-                <Typography.Caption>ROI Esperado</Typography.Caption>
-                <Typography.Body className="text-green-600 font-semibold">
-                  {property.expectedROI}% a.a.
-                </Typography.Body>
+
+              {/* Stats Grid */}
+              <View className="flex-row flex-wrap gap-4 mb-4">
+                <View className="flex-1">
+                  <Typography.Caption>Valor do Token</Typography.Caption>
+                  <Typography.Price className="text-lg">R$ {property.tokenPrice}</Typography.Price>
+                </View>
+                <View className="flex-1">
+                  <Typography.Caption>ROI Esperado</Typography.Caption>
+                  <Typography.Body className="text-green-600 font-semibold">
+                    {property.expectedROI}% a.a.
+                  </Typography.Body>
+                </View>
               </View>
             </View>
 
